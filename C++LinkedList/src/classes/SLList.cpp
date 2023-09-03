@@ -158,6 +158,36 @@ public:
 
     void deleteNode(int data)
     {
+        SLNode *ref = head;
+
+        if (data == head->data)
+        {
+            int element = popFront();
+            cout << "Deleted element was: " << element << endl;
+            ref = NULL;
+        }
+        else if (data == tail->data)
+        {
+            int element = popBack();
+            cout << "Deleted element was: " << element << endl;
+            ref = NULL;
+        }
+        else
+        {
+            while (ref->next != NULL && data != ref->next->data)
+            {
+                ref = ref->next;
+            }
+
+            if (ref->next == NULL && data != ref->next->data)
+            {
+                cout << "The element does not belongs to the array." << endl;
+            }
+            else
+            {   
+
+            }
+        }
     }
 
     bool belongsToList(int data)
