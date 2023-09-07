@@ -179,13 +179,18 @@ public:
                 ref = ref->next;
             }
 
-            if (ref->next == NULL && data != ref->next->data)
+            if (ref->next == NULL)
             {
                 cout << "The element does not belongs to the array." << endl;
             }
             else
             {   
+                SLNode *deletedNode = ref->next;
+                ref->next = ref->next->next;
 
+                delete deletedNode;
+                deletedNode = NULL;
+                ref = NULL;
             }
         }
     }
