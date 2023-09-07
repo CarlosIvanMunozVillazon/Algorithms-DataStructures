@@ -18,6 +18,8 @@ int main()
     
     myList.deleteNode(13);
     myList.printList();
+
+    cout << "Element belongs to array? --> " << myList.belongsToList(48) << endl;
     
     //myList.deleteNode(8);
 

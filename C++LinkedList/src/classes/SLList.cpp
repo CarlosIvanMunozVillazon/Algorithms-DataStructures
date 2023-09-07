@@ -197,7 +197,16 @@ public:
 
     bool belongsToList(int data)
     {
-        return false;
+        SLNode *reference = head;
+
+        while (reference != NULL && data != reference->data)
+        {
+            reference = reference->next;
+        }
+
+        bool answer = reference != NULL;
+        reference = NULL;
+        return answer; 
     }
 
     void printList()
