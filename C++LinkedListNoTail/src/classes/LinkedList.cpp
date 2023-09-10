@@ -77,14 +77,19 @@ public:
 
     void printList()
     {
-        Node *ref = head;
-        while (ref->next != NULL)
+        if (head != NULL)
         {
-            cout << ref->data << "--> " << endl;
-            ref = ref->next;
+            Node *ref = head;
+            while (ref->next != NULL)
+            {
+                cout << ref->data << "-->";
+                ref = ref->next;
+            }
+            cout << ref->data << endl; // generates an error if we don't have elements.
+            ref = NULL;
+        } else {
+            cout << "The list is empty" << endl;
         }
-        cout << ref->data << endl;
-        ref = NULL;
     }
 
     void pushFront(int data)
@@ -141,11 +146,11 @@ public:
                     ref = ref->next;
                 }
 
-                Node *temporal = ref->next; // temporal pointer to the last node
-                ref->next = NULL; // point to null the "next" of the penultimate element
+                Node *temporal = ref->next;      // temporal pointer to the last node
+                ref->next = NULL;                // point to null the "next" of the penultimate element
                 deletedElement = temporal->data; // save data before deleting it
-                delete temporal; // delete the node
-                temporal = NULL; // point temporal to NULL for avoiding memory leaks
+                delete temporal;                 // delete the node
+                temporal = NULL;                 // point temporal to NULL for avoiding memory leaks
             }
         }
 
