@@ -65,7 +65,7 @@ public:
     // 2. pushBack *
     // 3. pushFront *
     // 4. popFront *
-    // 5. popBack 
+    // 5. popBack *
     // 6. deleteNode
     // 7. belongsToList
     // 8. printList *
@@ -111,12 +111,42 @@ public:
         int deletedElement = -1;
         if (head != NULL)
         {
-            Node *ref = head; // point to the head
+            Node *ref = head;            // point to the head
             deletedElement = head->data; // extract the data before deleting it
-            ref = ref->next; // move the reference to the next node
-            delete head; // delete the content of the current head
-            head = ref; // move the head to the reference
-            ref = NULL; // make the reference node point to null for avoiding memory leaks
+            ref = ref->next;             // move the reference to the next node
+            delete head;                 // delete the content of the current head
+            head = ref;                  // move the head to the reference
+            ref = NULL;                  // make the reference node point to null for avoiding memory leaks
+        }
+
+        return deletedElement;
+    }
+
+    int popBack()
+    {
+        int deletedElement = -1;
+
+        if (head != NULL) // if the head isn't null, then we have something to delete
+        {
+            if (head->next == NULL) // if we just have one element, then we pop it out
+            {
+                deletedElement = popFront();
+            }
+            else // if we have several items in the list
+            {
+                Node *ref = head;
+
+                while (ref->next->next != NULL) // we need to point to the penultimate element of the list
+                {
+                    ref = ref->next;
+                }
+
+                Node *temporal = ref->next; // temporal pointer to the last node
+                ref->next = NULL; // point to null the "next" of the penultimate element
+                deletedElement = temporal->data; // save data before deleting it
+                delete temporal; // delete the node
+                temporal = NULL; // point temporal to NULL for avoiding memory leaks
+            }
         }
 
         return deletedElement;
