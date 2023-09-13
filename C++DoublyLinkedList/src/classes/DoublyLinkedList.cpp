@@ -25,9 +25,9 @@ public:
     // Standard constructor
     Node(Node *nextNode = NULL, int newData = -1, Node *previousNode = NULL)
     {
-        this->prev = nextNode;
+        this->next = nextNode;
         this->data = newData;
-        this->next = previousNode;
+        this->prev = previousNode;
     }
 
     ~Node()
@@ -98,14 +98,31 @@ public:
 
     void pushBack(int newData)
     {
-        tail = new Node(NULL, newData, tail); // Allocate a new tail.
-        tail->prev->next = tail;              // Point the new "next" of the penultimate node.
+        if (this->tail == NULL)
+        {
+            this->tail = new Node(NULL, newData, NULL); // Allocate a new tail.
+            this->head = this->tail;
+        }
+        else
+        {
+            this->tail->next = new Node(NULL, newData, this->tail);
+            this->tail = this->tail->next; // Move the tail.
+        }
     }
 
     void pushFront(int newData)
     {
-        head = new Node(head, newData, NULL); // Allocate a new head.
-        head->next->prev = head;              // Point the new "prev" of the second node.
+
+        if (this->head == NULL)
+        {
+            this->head = new Node(NULL, newData, NULL); // Allocate a new head.
+            this->tail = this->head;
+        }
+        else
+        {
+            this->head->prev = new Node(this->head, newData, NULL);
+            this->head = this->head->prev; // Move the head.
+        }
     }
 
     int popFront()
