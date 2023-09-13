@@ -15,7 +15,7 @@ public:
 
     // We need two constructors, 1 for default allocation of a new node, 2 for the allocation of new nodes with info.
     // Default constructor
-    Node ()
+    Node()
     {
         this->prev = NULL;
         this->data = -1;
@@ -48,13 +48,171 @@ public:
 
 class DLList
 {
-    private:
+private:
     // Head & tail are here for preserving data integrity.
     Node *head;
     Node *tail;
-    
-    protected:
+
+protected:
     //
-    public:
-    //
+public:
+    // In the base constructor we must initialize our pointers to null.
+    DLList()
+    {
+        this->head = NULL;
+        this->tail = NULL;
+    }
+
+    // Within our destructor we must deallocate all the nodes used by our List.
+    ~DLList()
+    {
+        // Point the ref to the node next to the head.
+        Node *ref = head->next;
+
+        while (ref != NULL)
+        {
+            delete head;     // Delete the head.
+            head = ref;      // Move the head to the next node.
+            ref = ref->next; // Move the reference to the next node.
+        }
+
+        // Point the used pointers to null for avoiding memory leaks.
+        head = NULL;
+        ref = NULL;
+    }
+
+    // Methods to implement:
+    // 1. isEmpty *
+    // 2. pushBack *
+    // 3. pushFront *
+    // 4. popFront *
+    // 5. popBack *
+    // 6. deleteNode *
+    // 7. belongsToList *
+    // 8. printList *
+
+    bool isEmpty()
+    {
+        return this->head == NULL;
+    }
+
+    void pushBack(int newData)
+    {
+        tail = new Node(NULL, newData, tail); // Allocate a new tail.
+        tail->prev->next = tail;              // Point the new "next" of the penultimate node.
+    }
+
+    void pushFront(int newData)
+    {
+        head = new Node(head, newData, NULL); // Allocate a new head.
+        head->next->prev = head;              // Point the new "prev" of the second node.
+    }
+
+    int popFront()
+    {
+        int deletedElement = -1;
+
+        if (head != NULL)
+        {
+            Node *temporal = head;
+            deletedElement = temporal->data;
+            head = head->next;
+            head->prev = NULL;
+            delete temporal;
+            temporal = NULL;
+        }
+        else
+        {
+            cout << "No data deleted." << endl;
+        }
+
+        return deletedElement;
+    }
+
+    int popBack()
+    {
+        int deletedElement = -1;
+
+        if (tail != NULL)
+        {
+            Node *temporal = tail;
+            deletedElement = temporal->data;
+            tail = tail->prev;
+            tail->next = NULL;
+            delete temporal;
+            temporal = NULL;
+        }
+        else
+        {
+            cout << "No data deleted." << endl;
+        }
+        return deletedElement;
+    }
+
+    int deleteNode(int deleteData)
+    {
+        int deletedElement = -1;
+
+        if (deleteData == head->data)
+        {
+            deletedElement = head->data;
+            popFront();
+        }
+        else if (tail->data == deleteData)
+        {
+            deletedElement = tail->data;
+            popBack();
+        }
+        else
+        {
+            Node *ref = head->next;
+
+            while (ref != tail && ref->data != deleteData)
+            {
+                ref = ref->next;
+            }
+
+            if (ref->data == deleteData)
+            {
+                ref->prev->next = ref->next;
+                ref->next->prev = ref->prev;
+                deletedElement = ref->data;
+                delete ref;
+                ref = NULL;
+            }
+            else
+            {
+                cout << "No data deleted." << endl;
+            }
+        }
+
+        return deletedElement;
+    }
+
+    bool belongsToList(int findData)
+    {
+        bool notInList = true;
+        Node *ref = head;
+
+        while (ref != NULL && notInList)
+        {
+            notInList = ref->data != findData;
+            ref = ref->next;
+        }
+
+        return !notInList;
+    }
+
+    void printList()
+    {
+        Node *ref = head;
+        while (ref->next != NULL)
+        {
+            cout << ref->data << "-->";
+            ref = ref->next;
+        }
+
+        cout << ref->data << endl;
+        ref = NULL;
+    }
 };
