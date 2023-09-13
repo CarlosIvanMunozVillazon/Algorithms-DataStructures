@@ -26,7 +26,7 @@ public:
     {
         if (this->next != 0) // the pointers to the next nodes should be pointed to 0 for avoiding memory leaks.
         {
-            this->next = 0;
+            this->next = NULL;
         }
     }
 };
@@ -66,7 +66,7 @@ public:
     // 3. pushFront *
     // 4. popFront *
     // 5. popBack *
-    // 6. deleteNode
+    // 6. deleteNode *
     // 7. belongsToList *
     // 8. printList *
 
@@ -87,7 +87,9 @@ public:
             }
             cout << ref->data << endl; // generates an error if we don't have elements.
             ref = NULL;
-        } else {
+        }
+        else
+        {
             cout << "The list is empty" << endl;
         }
     }
@@ -100,15 +102,21 @@ public:
 
     void pushBack(int data)
     {
-        Node *ref = head;
-
-        while (ref->next != NULL)
+        if (head == NULL)
         {
-            ref = ref->next;
+            head = new Node(data, NULL);
         }
+        else
+        {
+            Node *ref = head;
+            while (ref->next != NULL)
+            {
+                ref = ref->next;
+            }
 
-        ref->next = new Node(data, NULL);
-        ref = NULL;
+            ref->next = new Node(data, NULL);
+            ref = NULL;
+        }
     }
 
     int popFront()
@@ -163,14 +171,44 @@ public:
 
         bool foundData = false;
         while (ref != NULL && !foundData)
-        {   
+        {
             if (ref->data == data)
             {
                 foundData = true;
             }
-            ref = ref -> next;
+            ref = ref->next;
         }
 
         return foundData;
+    }
+
+    int deleteNode(int data)
+    {
+        int deletedData = -1;
+        if (head->data == data)
+        {
+            deletedData = data;
+            popFront();
+        }
+        else
+        {
+            Node *ref = head;
+            Node *ref2 = head->next;
+            while (ref2 != NULL && ref2->data != data)
+            {
+                ref2 = ref2->next;
+                ref = ref->next;
+            }
+
+            if (ref2 != NULL)
+            {
+                ref->next = ref->next->next;
+                deletedData = ref2->data;
+                delete ref2;
+                ref2 = NULL;
+            }
+        }
+
+        return deletedData;
     }
 };
