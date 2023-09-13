@@ -129,12 +129,12 @@ public:
     {
         int deletedElement = -1;
 
-        if (head != NULL)
+        if (this->head != NULL)
         {
-            Node *temporal = head;
+            Node *temporal = this->head;
             deletedElement = temporal->data;
-            head = head->next;
-            head->prev = NULL;
+            this->head = this->head->next;
+            this->head->prev = NULL;
             delete temporal;
             temporal = NULL;
         }
@@ -150,12 +150,12 @@ public:
     {
         int deletedElement = -1;
 
-        if (tail != NULL)
+        if (this->tail != NULL)
         {
-            Node *temporal = tail;
+            Node *temporal = this->tail;
             deletedElement = temporal->data;
-            tail = tail->prev;
-            tail->next = NULL;
+            this->tail = this->tail->prev;
+            this->tail->next = NULL;
             delete temporal;
             temporal = NULL;
         }
@@ -170,21 +170,21 @@ public:
     {
         int deletedElement = -1;
 
-        if (deleteData == head->data)
+        if (deleteData == this->head->data)
         {
-            deletedElement = head->data;
+            deletedElement = this->head->data;
             popFront();
         }
-        else if (tail->data == deleteData)
+        else if (this->tail->data == deleteData)
         {
-            deletedElement = tail->data;
+            deletedElement = this->tail->data;
             popBack();
         }
         else
         {
-            Node *ref = head->next;
+            Node *ref = this->head->next;
 
-            while (ref != tail && ref->data != deleteData)
+            while (ref != this->tail && ref->data != deleteData)
             {
                 ref = ref->next;
             }
@@ -209,7 +209,7 @@ public:
     bool belongsToList(int findData)
     {
         bool notInList = true;
-        Node *ref = head;
+        Node *ref = this->head;
 
         while (ref != NULL && notInList)
         {
@@ -222,7 +222,7 @@ public:
 
     void printList()
     {
-        Node *ref = head;
+        Node *ref = this->head;
         while (ref->next != NULL)
         {
             cout << ref->data << "-->";
