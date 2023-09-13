@@ -15,13 +15,21 @@ int main()
     myList.pushBack(45);
 
     myList.printList();
-    
+
     myList.deleteNode(13);
     myList.printList();
 
     cout << "Element belongs to array? --> " << myList.belongsToList(48) << endl;
-    
-    //myList.deleteNode(8);
+
+    myList.deleteNode(9);
+    myList.printList();
+
+    myList.popBack();
+    myList.popFront();
+
+    myList.printList();
+
+    // myList.deleteNode(8);
 
     // Creation of a node
     // SLNode *head = new SLNode(4, NULL); // head holds the address of the first node

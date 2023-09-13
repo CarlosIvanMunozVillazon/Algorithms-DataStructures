@@ -40,7 +40,6 @@ private:
     // data within the list, keeping the middle elements hidden, because the access to the address of the head & tail are private
     SLNode *head;
     SLNode *tail;
-
 protected:
     //
 public:
@@ -49,13 +48,6 @@ public:
         this->head = NULL;
         this->tail = NULL;
     }
-
-    // SLList(SLNode *hed = 0, SLNode *tail = 0)
-    // {
-    //     // some things should be done here
-    //     this->head = hed;
-    //     this->tail = tail;
-    // }
 
     ~SLList()
     {
