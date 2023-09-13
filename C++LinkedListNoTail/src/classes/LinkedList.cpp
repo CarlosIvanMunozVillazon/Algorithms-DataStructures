@@ -67,7 +67,7 @@ public:
     // 4. popFront *
     // 5. popBack *
     // 6. deleteNode
-    // 7. belongsToList
+    // 7. belongsToList *
     // 8. printList *
 
     bool isEmpty()
@@ -155,5 +155,22 @@ public:
         }
 
         return deletedElement;
+    }
+
+    bool belongsToList(int data)
+    {
+        Node *ref = head;
+
+        bool foundData = false;
+        while (ref != NULL && !foundData)
+        {   
+            if (ref->data == data)
+            {
+                foundData = true;
+            }
+            ref = ref -> next;
+        }
+
+        return foundData;
     }
 };
