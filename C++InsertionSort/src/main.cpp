@@ -1,55 +1,47 @@
-#include <iostream>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-void printArray(int A[], int n);
-void insertionSort(int A[], int n);
-
+void insertionSort(int array[], int n);
 int main()
 {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-    int array_1[] = {5, 4, 3, 2, 1, 0};
-    int arraySize = (int)(sizeof(array_1) / sizeof(int));
+    int len = 0;
+    cin >> len;
 
-    printArray(array_1, arraySize);
-    insertionSort(array_1, arraySize); //The function modifies the array located in memory :0
-    printArray(array_1, arraySize);
+    int array[len];
+    for (int i = 0; i < len; i++)
+    {
+        cin >> array[i];
+    }
 
+    insertionSort(array, len);
+
+    for (int i = 0; i < len; i++)
+    {
+        cout << array[i] << " ";
+    }
+
+    cout << "\n";
     return 0;
 }
 
-void printArray(int A[], int n)
+void insertionSort(int array[], int n)
 {
-    for (int i = 0; i < n; i++)
+    int temporal = 0;
+    int j = 0;
+    for (int i = 1; i < n; i++)
     {
-        cout << A[i] << ", ";
-    };
-
-    cout << " " << endl;
-}
-
-void insertionSort(int A[], int n)
-{
-    // n: array length, i: second element of the array
-    int i = 1;
-
-    while (i < n)
-    {
-        
-        int key = A[i];
-        int j = i - 1;
-
-        while ((j >= 0) && (A[j] > key))
+        temporal = array[i];
+        j = i - 1;
+        while (array[j] > temporal && j >= 0)
         {
-
-            A[j+1] = A[j];
+            array[j + 1] = array[j];
             j--;
-
         }
-
-        A[j + 1] = key;
-        i++;
+        j++;
+        array[j] = temporal;
     }
-
-    // Don't know how to return a pointer, thats why i print it.
-    printArray(A, n);
 }
