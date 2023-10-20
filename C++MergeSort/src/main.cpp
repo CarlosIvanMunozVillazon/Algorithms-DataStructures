@@ -87,7 +87,7 @@ int main()
     }
 
     cout << " " << endl;
-    delete newArr;
+    delete []newArr;
     newArr = NULL;
 
     return 0;
@@ -181,7 +181,7 @@ char *fooFunction2()
     return kptr;
 }
 
-int *invertArray(int array[], int size)
+int *invertArray(int array[], int size) /*Pending to correct*/
 {
     int *newArray = new int[size];
 
