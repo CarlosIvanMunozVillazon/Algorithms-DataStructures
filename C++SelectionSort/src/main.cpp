@@ -1,71 +1,50 @@
-#include <iostream>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-int findMinimum(int array[], int position, int arraySize);
-void arrayPrinter(int *arrayPointer, int range);
-void selectionSort(int array[], int arraySize);
-
+void selectionSort(int array[], int n);
 int main()
 {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-    cout << "Selection Sort" << endl;
-    cout << "By: Carlos Ivan Muñoz Villazon" << endl;
+    int len = 0;
 
-    int testArray[5] = {5, 4, 3, 2, 1};
-    int arraySize = sizeof(testArray) / sizeof(testArray[0]);
+    cin >> len;
 
-    selectionSort(testArray, arraySize);
+    int array[len];
+    for (int i = 0; i < len; i++)
+    {
+        cin >> array[i];
+    }
 
-    int *testArrayPointer;
-    testArrayPointer = &testArray[0];
-    arrayPrinter(testArrayPointer, arraySize);
+    selectionSort(array, len);
 
+    for (int i : array)
+    {
+        cout << i << " ";
+    }
+
+    cout << "\n";
     return 0;
 }
 
-// Function that returns the position of the minimum element from the beginning of the array till the end of the array.
-int findMinimum(int array[], int position, int arraySize)
+void selectionSort(int array[], int n)
 {
-
-    int p = position;
-    int number = array[position];
-
-    for (int i = position + 1; i < arraySize; i++)
+    int minValue = 0;
+    int position = 0;
+    for (int j = 0; j < n; j++)
     {
-        if (array[i] <= number)
+        minValue = array[j];
+        for (int i = j; i < n; i++)
         {
-            number = array[i];
-            p = i;
+            if (minValue >= array[i])
+            {
+                minValue = array[i];
+                position = i;
+            }
         }
+        array[position] = array[j];
+        array[j] = minValue;
     }
-
-    return p;
-}
-
-// Function that constructs a sorted array by finding the minimum elements of the subarray and putting them in the correct
-// positions.
-void selectionSort(int array[], int arraySize)
-{
-    int i = 0;
-    while (i < arraySize)
-    {
-        int minimumFoundPosition = findMinimum(array,i,arraySize);
-
-        int key = array[i];
-        array[i] = array[minimumFoundPosition];
-        array[minimumFoundPosition] = key;
-
-        i++;
-    }
-}
-
-void arrayPrinter(int *arrayPointer, int range)
-{
-    for (int i = 0; i < range; i++)
-    {
-        cout << (*arrayPointer) << " ";
-        arrayPointer++;
-    }
-
-    cout << "" << endl;
 }
